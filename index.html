@@ -197,7 +197,7 @@ canvas {
   transition: all 0.15s; flex-shrink: 0;
 }
 .dir-close-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,200,255,0.06); }
-.dir-table-wrap { overflow-y: auto; flex: 1; }
+.dir-table-wrap { overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 .dir-table-wrap::-webkit-scrollbar { width: 2px; }
 .dir-table-wrap::-webkit-scrollbar-thumb { background: var(--border); }
 #dirTable { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
@@ -355,7 +355,7 @@ canvas {
   color: var(--cyan); opacity: 0.55; letter-spacing: 1px; flex-shrink: 0;
 }
 @media (max-width: 1024px) {
-  .access-body { flex-direction: column; overflow-y: auto; }
+  .access-body { flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .access-info { border-right: none; border-bottom: 1px solid var(--border); }
   .access-cta-col { justify-content: flex-start; }
 }
@@ -1018,7 +1018,8 @@ canvas {
 /* ── HINT ── */
 #hint {
   position: fixed;
-  top: 72px; left: 22px;
+  top: 18vh; left: 50%;
+  transform: translateX(-50%);
   z-index: 20;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 7.5px;
@@ -1028,6 +1029,7 @@ canvas {
   pointer-events: none;
   transition: opacity 1.2s;
   white-space: nowrap;
+  text-align: center;
 }
 
 /* ── CITY PANEL ── */
@@ -1348,6 +1350,7 @@ canvas {
   background: rgba(0,0,0,0.94);
   border: 1px solid rgba(0,200,255,0.28);
   border-top: none; max-height: 300px; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 #floatSearchResults.vis { display: block; }
 .fsr-item {
@@ -1532,15 +1535,8 @@ body.panel-open #statusFilterBar { opacity: 0 !important; pointer-events: none !
     justify-content: center;
   }
 
-  /* ── Hint: below filter strip ── */
-  #hint {
-    top: 196px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 6.5px;
-    letter-spacing: 2px;
-    white-space: nowrap;
-  }
+  /* ── Hint: below mobile header stack, near globe top ── */
+  #hint { display: block !important; top: 210px; font-size: 6.5px; letter-spacing: 2px; }
 
   /* ── HUD: compact, bottom-right, clear of industry bar ── */
   #scanHUD {
@@ -1728,7 +1724,7 @@ body.pin-hover { cursor: crosshair; }
   #ticker { display: none; }
   .hud-corner { display: none; }
 
-  #hint { font-size: 7px; letter-spacing: 2px; top: 82px; }
+  #hint { font-size: 7px; letter-spacing: 2px; top: 18vh; }
 
   /* Panel — bottom sheet on mobile, leaves globe visible above */
   #cityPanel {
@@ -2189,7 +2185,7 @@ body.pin-hover { cursor: crosshair; }
 
 /* Portal content area */
 #portalContent { flex: 1; overflow: hidden; position: relative; }
-.ptab-pane { display: none; height: 100%; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.15) transparent; }
+.ptab-pane { display: none; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.15) transparent; }
 .ptab-pane.active { display: flex; flex-direction: column; }
 .ptab-pane::-webkit-scrollbar { width: 4px; }
 .ptab-pane::-webkit-scrollbar-thumb { background: rgba(0,200,255,0.12); border-radius: 2px; }
@@ -2199,7 +2195,8 @@ body.pin-hover { cursor: crosshair; }
 #msgSidebar {
   width: 240px; min-width: 200px; flex-shrink: 0;
   border-right: 1px solid rgba(0,200,255,0.08);
-  overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.1) transparent;
+  overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.1) transparent;
 }
 #msgSidebar::-webkit-scrollbar { width: 3px; }
 #msgSidebar::-webkit-scrollbar-thumb { background: rgba(0,200,255,0.1); }
@@ -2217,7 +2214,7 @@ body.pin-hover { cursor: crosshair; }
 #msgThreadHead .mth-status.online  { background: rgba(0,255,136,0.08); color: #00ff88; border: 1px solid rgba(0,255,136,0.25); }
 #msgThreadHead .mth-status.standby { background: rgba(255,214,0,0.08); color: #ffd600; border: 1px solid rgba(255,214,0,0.28); }
 #msgThreadHead .mth-status.offline { background: rgba(255,68,85,0.08); color: #ff4455; border: 1px solid rgba(255,68,85,0.25); }
-#msgMessages { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.1) transparent; }
+#msgMessages { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: rgba(0,200,255,0.1) transparent; }
 #msgMessages::-webkit-scrollbar { width: 3px; }
 #msgMessages::-webkit-scrollbar-thumb { background: rgba(0,200,255,0.1); }
 .msg-bubble { max-width: 78%; }
@@ -2360,9 +2357,42 @@ body.pin-hover { cursor: crosshair; }
 /* Mobile portal */
 @media (max-width: 768px) {
   #clientPortal { width: 100%; }
+
+  /* Portal header: hide title on mobile to make room for tabs + close */
+  #portalTitle { display: none; }
+  #portalHeader {
+    padding: 0 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0;
+  }
+  .ptab { font-size: 7px; letter-spacing: 1.2px; padding: 14px 10px 12px; }
+
+  /* Larger, easier-to-tap close button */
+  #portalClose { font-size: 10px; padding: 9px 14px; border-width: 1.5px; flex-shrink: 0; }
+
+  /* Filter bar: wrap into 2 compact rows */
+  #portalAgentFilter { padding: 6px 12px; gap: 4px; }
+  .paf-btn { font-size: 6.5px; padding: 4px 7px; }
+  .paf-sep { display: none; }
+  .paf-select { font-size: 7px; padding: 3px 6px; max-width: 120px; }
+
+  /* Messages stacked */
   #pane-messages { flex-direction: column !important; }
-  #msgSidebar { width: 100%; height: 160px; min-width: unset; border-right: none; border-bottom: 1px solid rgba(0,200,255,0.08); }
+  #msgSidebar { width: 100%; height: 150px; min-width: unset; border-right: none; border-bottom: 1px solid rgba(0,200,255,0.08); }
+
+  /* Agent toggle button — lower on phone so it doesn't crowd the globe */
+  #agentToggleBtn { bottom: 170px; right: 8px; }
 }
+
+/* When portal is open, disable canvas touch so iOS doesn't intercept taps on portal */
+body.portal-open canvas { pointer-events: none !important; touch-action: none !important; }
+body.portal-open #floatSearch { opacity: 0 !important; pointer-events: none !important; }
+body.portal-open #statusFilterBar { opacity: 0 !important; pointer-events: none !important; }
+body.portal-open #sectorBar { opacity: 0 !important; pointer-events: none !important; }
+body.portal-open #scanHUD { opacity: 0 !important; pointer-events: none !important; }
+body.portal-open #agentToggleBtn { opacity: 0 !important; pointer-events: none !important; }
+body.portal-open #hint { opacity: 0 !important; }
 </style>
 </head>
 <body>
@@ -6799,6 +6829,7 @@ function togglePortal(agentIdx) {
   const btn   = document.getElementById('portalBtn');
   if (!panel) return;
   panel.classList.toggle('open', _portalOpen);
+  document.body.classList.toggle('portal-open', _portalOpen);
   if (btn) btn.classList.toggle('active', _portalOpen);
 
   if (_portalOpen) {
